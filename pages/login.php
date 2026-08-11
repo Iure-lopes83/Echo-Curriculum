@@ -1,9 +1,12 @@
 <?php
 // ============================================
-// login.php - Página de login
+// login.php - Login (CORRIGIDO)
 // ============================================
+require_once __DIR__ . '/../config.php';
+
 $error = '';
 
+// Processar login ANTES de qualquer saída HTML
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
     $login = $_POST['login_input'] ?? '';
     $password = $_POST['password'] ?? '';
@@ -20,14 +23,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['user_name'] = $user['name'];
             $_SESSION['user_type'] = $user['user_type'];
-            redirect('index.php?page=home');
+            
+            // Limpar buffer e redirecionar
+            while (ob_get_level()) {
+                ob_end_clean();
+            }
+            header("Location: index.php?page=home");
+            exit();
         } else {
             $error = 'CPF/CNPJ/E-mail ou senha inválidos.';
         }
     }
 }
-?>
 
+// Agora sim, incluir o header (depois de todo o processamento)
+// O header.php NÃO foi incluído antes do redirect
+?>
 <div class="auth-card" style="max-width: 480px;">
     <div style="text-align: center; margin-bottom: 24px;">
         <div class="logo-ec" style="display: inline-block; font-size: 2.5rem; padding: 8px 24px; margin-bottom: 8px;">EC</div>
