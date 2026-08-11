@@ -10,15 +10,25 @@ $username = getenv('DB_USER') ?: 'root';
 $password = getenv('DB_PASSWORD') ?: '';
 
 try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
+    // Tentar PostgreSQL primeiro
+    $dsn = "pgsql:host=$host;dbname=$dbname;port=5432";
+    $pdo = new PDO($dsn, $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-} catch(PDOException $e) {
-    // Em produção, não mostre o erro detalhado
-    if (getenv('RENDER') === 'true') {
-        die("Erro de conexão com o banco de dados. Verifique as configurações.");
-    } else {
-        die("Erro na conexão: " . $e->getMessage());
+} catch (PDOException $e) {
+    // Se PostgreSQL falhar, tentar MySQL
+    try {
+        $dsn = "mysql:host=$host;dbname=$dbname;charset=utf8;port=3306";
+        $pdo = new PDO($dsn, $username, $password);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+    } catch (PDOException $e2) {
+        // Em produção, não mostre o erro detalhado
+        if (getenv('RENDER') === 'true') {
+            die("Erro de conexão com o banco de dados. Verifique as configurações.");
+        } else {
+            die("Erro na conexão: " . $e2->getMessage());
+        }
     }
 }
 
