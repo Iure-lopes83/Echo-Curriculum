@@ -1,8 +1,10 @@
 <?php
 // ============================================
-// index.php - Roteador principal
+// index.php - Roteador principal (CORRIGIDO)
 // ============================================
-require_once 'config.php';
+
+// IMPORTANTE: config.php deve ser o PRIMEIRO a ser carregado
+require_once __DIR__ . '/config.php';
 
 // Definir página atual
 $page = isset($_GET['page']) ? $_GET['page'] : 'home';
@@ -16,25 +18,25 @@ if (!in_array($page, $allowed_pages)) {
     $page = 'home';
 }
 
-// Incluir header
-include 'header.php';
+// Depois de configurar tudo, incluir o header (que tem HTML)
+include __DIR__ . '/header.php';
 
 // Incluir menu
-include 'menu.php';
+include __DIR__ . '/menu.php';
 
 // Conteúdo principal
 echo '<main class="container">';
 
 // Carregar página conforme rota
-$page_file = "pages/$page.php";
+$page_file = __DIR__ . "/pages/$page.php";
 if (file_exists($page_file)) {
     include $page_file;
 } else {
-    include 'pages/home.php';
+    include __DIR__ . '/pages/home.php';
 }
 
 echo '</main>';
 
 // Incluir footer
-include 'footer.php';
+include __DIR__ . '/footer.php';
 ?>
