@@ -1,21 +1,10 @@
 <?php
 // ============================================
-// logout.php - Logout (CORRIGIDO)
+// logout.php - Logout
 // ============================================
+// Este arquivo não é mais necessário, pois o logout é processado no init.php
+// Mas mantido para compatibilidade
 
-// Incluir config primeiro
 require_once __DIR__ . '/../config.php';
-
-// Limpar sessão
-$_SESSION = array();
-session_destroy();
-
-// IMPORTANTE: Limpar buffer antes de redirecionar
-while (ob_get_level()) {
-    ob_end_clean();
-}
-
-// Redirecionar usando header
-header("Location: index.php?page=home");
-exit();
+redirect('index.php?page=logout');
 ?>
