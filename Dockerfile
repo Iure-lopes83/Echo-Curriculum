@@ -1,6 +1,6 @@
 FROM php:8.2-apache
 
-# Instalar PostgreSQL e MySQL
+# Instalar extensões do PHP
 RUN apt-get update && apt-get install -y \
     libpq-dev \
     libmariadb-dev \
