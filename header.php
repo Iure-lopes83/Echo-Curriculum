@@ -1,8 +1,5 @@
 <?php
-// ============================================
-// header.php - Cabeçalho HTML (CORRIGIDO)
-// ============================================
-// NÃO coloque nada antes desta linha!
+// header.php - NÃO pode ter espaços ou HTML antes do <?php
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
