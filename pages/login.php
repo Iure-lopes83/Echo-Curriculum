@@ -1,43 +1,8 @@
 <?php
 // ============================================
-// login.php - Login (CORRIGIDO)
+// login.php - Apenas HTML do formulário
 // ============================================
-require_once __DIR__ . '/../config.php';
-
-$error = '';
-
-// Processar login ANTES de qualquer saída HTML
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
-    $login = $_POST['login_input'] ?? '';
-    $password = $_POST['password'] ?? '';
-    
-    if (empty($login) || empty($password)) {
-        $error = 'Preencha todos os campos.';
-    } else {
-        // Buscar por CPF, CNPJ ou email
-        $stmt = $pdo->prepare("SELECT * FROM users WHERE cpf = ? OR cnpj = ? OR email = ?");
-        $stmt->execute([$login, $login, $login]);
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
-        
-        if ($user && password_verify($password, $user['password'])) {
-            $_SESSION['user_id'] = $user['id'];
-            $_SESSION['user_name'] = $user['name'];
-            $_SESSION['user_type'] = $user['user_type'];
-            
-            // Limpar buffer e redirecionar
-            while (ob_get_level()) {
-                ob_end_clean();
-            }
-            header("Location: index.php?page=home");
-            exit();
-        } else {
-            $error = 'CPF/CNPJ/E-mail ou senha inválidos.';
-        }
-    }
-}
-
-// Agora sim, incluir o header (depois de todo o processamento)
-// O header.php NÃO foi incluído antes do redirect
+// O processamento já foi feito no init.php
 ?>
 <div class="auth-card" style="max-width: 480px;">
     <div style="text-align: center; margin-bottom: 24px;">
@@ -46,11 +11,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
         <p class="subtitle" style="color: #4a6a8a;">Acesse sua conta com CPF, CNPJ ou E-mail</p>
     </div>
     
-    <?php if ($error): ?>
-        <div class="alert error"><?php echo $error; ?></div>
+    <?php if (isset($_GET['error'])): ?>
+        <div class="alert error">Credenciais inválidas. Tente novamente.</div>
     <?php endif; ?>
     
-    <form method="POST">
+    <?php if (isset($_GET['registered'])): ?>
+        <div class="alert success">Cadastro realizado com sucesso! Faça login.</div>
+    <?php endif; ?>
+    
+    <form method="POST" action="index.php?page=login">
         <div class="form-group">
             <label><i class="fas fa-id-card"></i> CPF / CNPJ / E-mail</label>
             <input type="text" name="login_input" placeholder="Digite seu CPF, CNPJ ou E-mail" required>
