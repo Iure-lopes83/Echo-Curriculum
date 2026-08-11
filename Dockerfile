@@ -9,12 +9,22 @@ RUN apt-get update && apt-get install -y \
 # Habilitar mod_rewrite
 RUN a2enmod rewrite
 
+# Configurar o diretório de trabalho
+WORKDIR /var/www/html
+
 # Copiar arquivos
 COPY . /var/www/html/
 
-# Permissões
+# Configurar permissões
 RUN chown -R www-data:www-data /var/www/html && \
-    chmod -R 755 /var/www/html
+    chmod -R 755 /var/www/html && \
+    chmod 777 /var/www/html/uploads
 
+# Configurar Apache para servir index.php como padrão
+RUN echo "DirectoryIndex index.php" >> /etc/apache2/apache2.conf
+
+# Expor porta 80
 EXPOSE 80
+
+# Iniciar Apache
 CMD ["apache2-foreground"]
