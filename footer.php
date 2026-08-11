@@ -1,3 +1,9 @@
+<?php
+// ============================================
+// footer.php - Rodapé (CORRIGIDO)
+// ============================================
+// NÃO coloque nada antes desta linha!
+?>
 <footer class="footer">
     <div class="container">
         <div class="footer-content">
