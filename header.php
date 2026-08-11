@@ -1,3 +1,9 @@
+<?php
+// ============================================
+// header.php - Cabeçalho HTML (CORRIGIDO)
+// ============================================
+// NÃO coloque nada antes desta linha!
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
