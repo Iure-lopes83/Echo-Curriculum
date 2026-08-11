@@ -52,11 +52,19 @@ function isCandidate() {
 }
 
 function redirect($url) {
-    // Limpar buffer antes de redirecionar
-    if (ob_get_level()) {
+    // Limpar qualquer saída em buffer
+    while (ob_get_level()) {
         ob_end_clean();
     }
+    
+    // Redirecionar
     header("Location: $url");
+    exit();
+}
+
+// Função para redirecionamento com JavaScript (fallback)
+function redirect_js($url) {
+    echo "<script>window.location.href='$url';</script>";
     exit();
 }
 ?>
