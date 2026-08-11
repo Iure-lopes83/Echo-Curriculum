@@ -1,7 +1,8 @@
 <?php
 // ============================================
-// menu.php - Menu de navegação
+// menu.php - Menu de navegação (CORRIGIDO)
 // ============================================
+// NÃO coloque nada antes desta linha!
 ?>
 <nav class="navbar">
     <div class="container">
