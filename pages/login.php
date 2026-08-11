@@ -1,8 +1,9 @@
 <?php
 // ============================================
-// login.php - Apenas HTML do formulário
+// login.php - Formulário de login
 // ============================================
-// O processamento já foi feito no init.php
+$error = isset($_GET['error']) ? $_GET['error'] : '';
+$registered = isset($_GET['registered']) ? $_GET['registered'] : '';
 ?>
 <div class="auth-card" style="max-width: 480px;">
     <div style="text-align: center; margin-bottom: 24px;">
@@ -11,11 +12,11 @@
         <p class="subtitle" style="color: #4a6a8a;">Acesse sua conta com CPF, CNPJ ou E-mail</p>
     </div>
     
-    <?php if (isset($_GET['error'])): ?>
-        <div class="alert error">Credenciais inválidas. Tente novamente.</div>
+    <?php if ($error): ?>
+        <div class="alert error"><?php echo htmlspecialchars($error); ?></div>
     <?php endif; ?>
     
-    <?php if (isset($_GET['registered'])): ?>
+    <?php if ($registered): ?>
         <div class="alert success">Cadastro realizado com sucesso! Faça login.</div>
     <?php endif; ?>
     
