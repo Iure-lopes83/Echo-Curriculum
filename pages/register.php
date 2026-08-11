@@ -1,10 +1,9 @@
 <?php
 // ============================================
-// register.php - Apenas HTML do formulário
+// register.php - Formulário de cadastro
 // ============================================
 $step = isset($_GET['step']) ? $_GET['step'] : 'choose';
 $error = isset($_GET['error']) ? $_GET['error'] : '';
-$success = isset($_GET['success']) ? $_GET['success'] : '';
 ?>
 <div class="auth-container">
     <?php if ($step === 'choose' || empty($step)): ?>
@@ -63,7 +62,10 @@ $success = isset($_GET['success']) ? $_GET['success'] : '';
             </div>
             
             <?php if ($error): ?>
-                <div class="alert error">❌ <?php echo htmlspecialchars($error); ?></div>
+                <div class="alert error">
+                    <strong>❌ Erro no cadastro:</strong><br>
+                    <?php echo nl2br(htmlspecialchars(str_replace('\\n', "\n", $error))); ?>
+                </div>
             <?php endif; ?>
             
             <form method="POST" action="index.php?page=register">
@@ -156,7 +158,10 @@ $success = isset($_GET['success']) ? $_GET['success'] : '';
             </div>
             
             <?php if ($error): ?>
-                <div class="alert error">❌ <?php echo htmlspecialchars($error); ?></div>
+                <div class="alert error">
+                    <strong>❌ Erro no cadastro:</strong><br>
+                    <?php echo nl2br(htmlspecialchars(str_replace('\\n', "\n", $error))); ?>
+                </div>
             <?php endif; ?>
             
             <form method="POST" action="index.php?page=register">
