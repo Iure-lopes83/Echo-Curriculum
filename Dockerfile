@@ -17,6 +17,9 @@ COPY . /var/www/html/
 RUN chown -R www-data:www-data /var/www/html && \
     chmod -R 755 /var/www/html
 
+# Configurar o Apache para servir o index.php da raiz
+RUN echo "DirectoryIndex index.php" >> /etc/apache2/apache2.conf
+
 # Expor a porta 80
 EXPOSE 80
 
