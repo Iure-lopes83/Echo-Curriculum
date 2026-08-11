@@ -17,8 +17,7 @@ COPY . /var/www/html/
 
 # Configurar permissões
 RUN chown -R www-data:www-data /var/www/html && \
-    chmod -R 755 /var/www/html && \
-    chmod 777 /var/www/html/uploads
+    chmod -R 755 /var/www/html
 
 # Configurar Apache para servir index.php como padrão
 RUN echo "DirectoryIndex index.php" >> /etc/apache2/apache2.conf
