@@ -1,6 +1,6 @@
 <?php
 // ============================================
-// CONFIGURAÇÕES DO BANCO DE DADOS
+// config.php - Configurações (CORRIGIDO)
 // ============================================
 
 // Usar variáveis de ambiente do Render
@@ -33,7 +33,7 @@ try {
 }
 
 // ============================================
-// SESSÃO
+// SESSÃO - Deve ser iniciada ANTES de qualquer saída HTML
 // ============================================
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -52,6 +52,10 @@ function isCandidate() {
 }
 
 function redirect($url) {
+    // Limpar buffer antes de redirecionar
+    if (ob_get_level()) {
+        ob_end_clean();
+    }
     header("Location: $url");
     exit();
 }
