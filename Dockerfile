@@ -1,27 +1,20 @@
-# Usar imagem oficial do PHP com Apache
 FROM php:8.2-apache
 
-# Instalar extensões do PHP necessárias
-RUN docker-php-ext-install pdo_mysql mysqli
+# Instalar PostgreSQL e MySQL
+RUN apt-get update && apt-get install -y \
+    libpq-dev \
+    libmariadb-dev \
+    && docker-php-ext-install pdo_pgsql pdo_mysql
 
-# Habilitar mod_rewrite do Apache
+# Habilitar mod_rewrite
 RUN a2enmod rewrite
 
-# Configurar o diretório de trabalho
-WORKDIR /var/www/html
-
-# Copiar todos os arquivos do projeto
+# Copiar arquivos
 COPY . /var/www/html/
 
-# Dar permissões corretas
+# Permissões
 RUN chown -R www-data:www-data /var/www/html && \
     chmod -R 755 /var/www/html
 
-# Configurar o Apache para servir o index.php da raiz
-RUN echo "DirectoryIndex index.php" >> /etc/apache2/apache2.conf
-
-# Expor a porta 80
 EXPOSE 80
-
-# Comando para iniciar o Apache
 CMD ["apache2-foreground"]
