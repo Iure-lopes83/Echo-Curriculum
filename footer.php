@@ -35,5 +35,37 @@
         </div>
     </div>
 </footer>
+
+<!-- Script para controle de tema -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const themeText = document.getElementById('themeText');
+    
+    // Verificar preferência salva
+    const savedTheme = localStorage.getItem('ec_theme');
+    if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+        themeIcon.className = 'fas fa-sun';
+        themeText.textContent = 'Claro';
+    }
+    
+    // Toggle do tema
+    themeToggle.addEventListener('click', function() {
+        const isDark = document.body.classList.toggle('dark-mode');
+        
+        if (isDark) {
+            themeIcon.className = 'fas fa-sun';
+            themeText.textContent = 'Claro';
+            localStorage.setItem('ec_theme', 'dark');
+        } else {
+            themeIcon.className = 'fas fa-moon';
+            themeText.textContent = 'Escuro';
+            localStorage.setItem('ec_theme', 'light');
+        }
+    });
+});
+</script>
 </body>
 </html>
