@@ -31,6 +31,14 @@
                 <li><a href="index.php?page=login" class="btn-outline <?php echo ($page === 'login') ? 'active' : ''; ?>"><i class="fas fa-sign-in-alt"></i> Login</a></li>
                 <li><a href="index.php?page=register" class="btn-solid <?php echo ($page === 'register') ? 'active' : ''; ?>"><i class="fas fa-user-plus"></i> Cadastrar</a></li>
             <?php endif; ?>
+            
+            <!-- Botão de Troca de Tema -->
+            <li>
+                <button class="theme-toggle" id="themeToggle" aria-label="Alternar tema">
+                    <i class="fas fa-moon" id="themeIcon"></i>
+                    <span id="themeText">Escuro</span>
+                </button>
+            </li>
         </ul>
     </div>
 </nav>
