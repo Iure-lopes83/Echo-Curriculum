@@ -1,6 +1,6 @@
 <?php
 // ============================================
-// footer.php - Rodapé (CORRIGIDO)
+// footer.php - Rodapé (COM DROPDOWN)
 // ============================================
 // NÃO coloque nada antes desta linha!
 ?>
@@ -36,9 +36,36 @@
     </div>
 </footer>
 
-<!-- Script para controle de tema -->
+<!-- Script para controle de tema e dropdown -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    // ===== DROPDOWN =====
+    const dropdownToggle = document.getElementById('settingsDropdown');
+    const dropdownMenu = document.getElementById('settingsMenu');
+    
+    if (dropdownToggle && dropdownMenu) {
+        // Abrir/fechar dropdown
+        dropdownToggle.addEventListener('click', function(e) {
+            e.stopPropagation();
+            dropdownMenu.classList.toggle('open');
+        });
+        
+        // Fechar dropdown ao clicar fora
+        document.addEventListener('click', function(e) {
+            if (!dropdownToggle.contains(e.target) && !dropdownMenu.contains(e.target)) {
+                dropdownMenu.classList.remove('open');
+            }
+        });
+        
+        // Fechar dropdown ao pressionar ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                dropdownMenu.classList.remove('open');
+            }
+        });
+    }
+    
+    // ===== TEMA =====
     const themeToggle = document.getElementById('themeToggle');
     const themeIcon = document.getElementById('themeIcon');
     const themeText = document.getElementById('themeText');
@@ -48,23 +75,31 @@ document.addEventListener('DOMContentLoaded', function() {
     if (savedTheme === 'dark') {
         document.body.classList.add('dark-mode');
         themeIcon.className = 'fas fa-sun';
-        themeText.textContent = 'Claro';
+        themeText.textContent = 'Tema Claro';
     }
     
     // Toggle do tema
-    themeToggle.addEventListener('click', function() {
-        const isDark = document.body.classList.toggle('dark-mode');
-        
-        if (isDark) {
-            themeIcon.className = 'fas fa-sun';
-            themeText.textContent = 'Claro';
-            localStorage.setItem('ec_theme', 'dark');
-        } else {
-            themeIcon.className = 'fas fa-moon';
-            themeText.textContent = 'Escuro';
-            localStorage.setItem('ec_theme', 'light');
-        }
-    });
+    if (themeToggle) {
+        themeToggle.addEventListener('click', function(e) {
+            e.stopPropagation(); // Evitar fechar o dropdown
+            const isDark = document.body.classList.toggle('dark-mode');
+            
+            if (isDark) {
+                themeIcon.className = 'fas fa-sun';
+                themeText.textContent = 'Tema Claro';
+                localStorage.setItem('ec_theme', 'dark');
+            } else {
+                themeIcon.className = 'fas fa-moon';
+                themeText.textContent = 'Tema Escuro';
+                localStorage.setItem('ec_theme', 'light');
+            }
+            
+            // Fechar dropdown após selecionar
+            if (dropdownMenu) {
+                dropdownMenu.classList.remove('open');
+            }
+        });
+    }
 });
 </script>
 </body>
