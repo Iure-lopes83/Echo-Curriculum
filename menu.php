@@ -1,6 +1,6 @@
 <?php
 // ============================================
-// menu.php - Menu de navegação (CORRIGIDO)
+// menu.php - Menu de navegação (COM DROPDOWN)
 // ============================================
 // NÃO coloque nada antes desta linha!
 ?>
@@ -32,12 +32,21 @@
                 <li><a href="index.php?page=register" class="btn-solid <?php echo ($page === 'register') ? 'active' : ''; ?>"><i class="fas fa-user-plus"></i> Cadastrar</a></li>
             <?php endif; ?>
             
-            <!-- Botão de Troca de Tema -->
-            <li>
-                <button class="theme-toggle" id="themeToggle" aria-label="Alternar tema">
-                    <i class="fas fa-moon" id="themeIcon"></i>
-                    <span id="themeText">Escuro</span>
+            <!-- Dropdown de Configurações -->
+            <li class="dropdown">
+                <button class="dropdown-toggle" id="settingsDropdown" aria-label="Configurações">
+                    <i class="fas fa-ellipsis-v"></i>
                 </button>
+                <ul class="dropdown-menu" id="settingsMenu">
+                    <!-- Tema -->
+                    <li>
+                        <button class="theme-toggle" id="themeToggle">
+                            <i class="fas fa-moon" id="themeIcon"></i>
+                            <span id="themeText">Tema Escuro</span>
+                        </button>
+                    </li>
+                    <!-- Pode adicionar mais opções aqui no futuro -->
+                </ul>
             </li>
         </ul>
     </div>
