@@ -32,7 +32,14 @@ $registered = isset($_GET['registered']) ? $_GET['registered'] : '';
         <button type="submit" name="login" class="btn-primary"><i class="fas fa-sign-in-alt"></i> Entrar</button>
     </form>
     
-    <div class="auth-switch" style="margin-top: 20px;">
+    <!-- Link Esqueci minha senha -->
+    <div style="text-align: center; margin-top: 12px;">
+        <a href="index.php?page=forgot_password" style="color: var(--azul-medio); font-size: 0.9rem; text-decoration: none;">
+            <i class="fas fa-key"></i> Esqueci minha senha
+        </a>
+    </div>
+    
+    <div class="auth-switch" style="margin-top: 12px;">
         Não tem conta? 
         <a href="index.php?page=register">Cadastre-se agora</a>
     </div>
